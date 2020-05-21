@@ -1,0 +1,75 @@
+
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="utf-8" />
+ <title>Book store</title>
+ </head>
+<body>
+ <h1>Our first server is running!</h1>
+ <p>Here's the list of books</p>
+ <ul>
+    <a href=v2/books/id></a>
+ </ul>
+<table id="prova">
+<h2>Tables</h2>
+</table>
+
+ <div class="user"> 
+   
+</div>
+ <form method="post" action="/v2/users/login">
+ <input type="text" name="username" value="username" />
+ <input type="text" name="password" value="password" />
+ <input type="submit" value="Submit" />
+ </form>
+ </body>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script> 
+ 
+
+ <script>
+     
+    var myList = document.querySelector("ul");
+fetch("v2/books").then(
+        function(response) {
+         if (!response.ok) {
+               throw new Error("HTTP error, status = " + response.status);
+          }
+        return response.json();}
+    ).then(function(json) {
+
+        for (var i = 0; i < json.length; i++) {
+
+            var listItem = document.createElement("li");
+             let { id, title, author, price } = json[i];
+            listItem.innerHTML = `${id} - ${title} - ${author} `;
+             myList.appendChild(listItem);
+        }
+ }); 
+
+
+
+
+
+
+ $(document).ready(function(){
+        $.getJSON('v2/books',function(data){
+   
+             for (let books of data){ 
+                $('#prova').append('<li><a href="/books/id.html?bookId=' + books.id + '">'+ books.title + ' ' + books.author + '</a></li>')
+             }    
+        }
+    );
+ });
+
+
+ </script>
+
+
+ </html>
